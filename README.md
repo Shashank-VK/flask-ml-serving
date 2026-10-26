@@ -273,3 +273,14 @@ curl -X POST http://localhost:5000/predict \
     export RATELIMIT_DEFAULT="120 per minute"
     python wsgi.py
     ```
+
+## Architecture
+
+```mermaid
+flowchart LR
+    Client[Client] --> API[Validated inference endpoint]
+    API --> Cache[Cache + rate limit]
+    Cache --> Model[scikit-learn classifier]
+    Model --> Metrics[Committed artifact + metrics]
+```
+
